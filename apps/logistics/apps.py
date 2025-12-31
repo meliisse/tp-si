@@ -1,0 +1,1 @@
+# AppConfig for logistics app

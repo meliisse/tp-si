@@ -1,0 +1,1 @@
+# Logic for price calculation: Price = Base + (Weight * Rate)
