@@ -1,0 +1,860 @@
+===============================================================================
+DOCUMENTATION DES ALGORITHMES ET FONCTIONNALITÉS
+Système de Gestion de Transport - Version 2.0
+===============================================================================
+
+TABLE DES MATIÈRES
+==================
+1. Favoris Personnalisables pour Agents
+2. Export et Impression des Tables
+3. Workflow des Statuts d'Expéditions
+4. Tracking Temps Réel (WebSocket)
+5. Alertes et Notifications pour Incidents
+6. Rapports Statistiques
+7. KPIs et Prévisions Avancées pour Dashboard
+8. Journalisation d'Audit Complète
+9. Sauvegarde et Monitoring Celery
+
+===============================================================================
+1. FAVORIS PERSONNALISABLES POUR AGENTS
+===============================================================================
+
+OBJECTIF:
+Permettre aux agents de sauvegarder des accès rapides à leurs clients, 
+chauffeurs, véhicules, etc. préférés.
+
+COMMENT ÇA MARCHE:
+------------------
+1. Un agent peut marquer n'importe quel objet comme "favori"
+2. Le système utilise un modèle "UserFavorites" avec GenericForeignKey
+3. Chaque favori est lié à:
+   - Un utilisateur (l'agent)
+   - Un type de contenu (Client, Chauffeur, Véhicule, etc.)
+   - Un ID d'objet spécifique
+
+ALGORITHME SIMPLE:
+------------------
+FONCTION ajouter_favori(utilisateur, type_objet, id_objet):
+    SI favori existe déjà ALORS
+        retourner "Déjà dans les favoris"
+    SINON
+        créer nouveau favori
+        lier à l'utilisateur
+        sauvegarder
+        retourner "Ajouté aux favoris"
+
+EXEMPLE D'UTILISATION:
+----------------------
+POST /api/favorites/add_favorite/
+{
+    "content_type": 12,  // ID du ContentType pour "Client"
+    "object_id": 45      // ID du client spécifique
+}
+
+AVANTAGES:
+----------
+- Accès rapide aux entités fréquemment utilisées
+- Personnalisation par utilisateur
+- Fonctionne avec n'importe quel type d'objet
+
+
+===============================================================================
+2. EXPORT ET IMPRESSION DES TABLES
+===============================================================================
+
+OBJECTIF:
+Permettre l'exportation et l'impression de toutes les tables principales
+en formats CSV et PDF.
+
+COMMENT ÇA MARCHE:
+------------------
+1. Chaque ViewSet hérite d'un "ExportMixin"
+2. Le mixin ajoute deux méthodes: export_to_csv() et export_to_pdf()
+3. Les données sont formatées selon des configurations prédéfinies
+
+ALGORITHME CSV:
+---------------
+FONCTION export_csv(données, champs):
+    créer fichier CSV
+    écrire en-têtes des colonnes
+    POUR CHAQUE objet dans données:
+        extraire valeurs des champs
+        écrire ligne dans CSV
+    retourner fichier CSV
+
+ALGORITHME PDF:
+---------------
+FONCTION export_pdf(données, champs, titre):
+    créer document PDF
+    ajouter titre stylisé
+    créer tableau avec données
+    POUR CHAQUE objet dans données (max 100):
+        extraire valeurs des champs
+        ajouter ligne au tableau
+    appliquer style (couleurs, bordures)
+    générer et retourner PDF
+
+EXEMPLE D'UTILISATION:
+----------------------
+GET /api/core/clients/export_csv/
+GET /api/core/clients/export_pdf/
+
+Tables exportables:
+- Clients
+- Chauffeurs
+- Véhicules
+- Destinations
+- Types de Service
+- Tarifications
+
+AVANTAGES:
+----------
+- Rapports facilement partageables
+- Compatible Excel et autres tableurs
+- PDF pour impression directe
+- Limite de 100 lignes pour PDF (performance)
+
+
+===============================================================================
+3. WORKFLOW DES STATUTS D'EXPÉDITIONS
+===============================================================================
+
+OBJECTIF:
+Suivre l'évolution complète du statut de chaque expédition avec historique
+et notifications automatiques.
+
+COMMENT ÇA MARCHE:
+------------------
+1. Chaque changement de statut est détecté par un signal Django
+2. Un historique est créé dans "ExpeditionStatusHistory"
+3. Des notifications sont envoyées au client et aux administrateurs
+
+STATUTS POSSIBLES:
+------------------
+- en_transit: En transit vers le centre de tri
+- tri: En cours de tri au centre
+- livraison: En cours de livraison finale
+- livre: Livré avec succès
+- echec: Échec de livraison
+
+ALGORITHME:
+-----------
+FONCTION changement_statut(expedition, ancien_statut, nouveau_statut):
+    // 1. Enregistrer dans l'historique
+    créer ExpeditionStatusHistory:
+        expedition = expedition
+        old_status = ancien_statut
+        new_status = nouveau_statut
+        timestamp = maintenant()
+        changed_by = utilisateur_actuel
+    
+    // 2. Notifier le client
+    SI expedition a un client ALORS
+        créer notification pour client:
+            titre = "Statut mis à jour"
+            message = "Votre expédition {numero} est maintenant: {nouveau_statut}"
+            envoyer email
+    
+    // 3. Notifier les admins
+    POUR CHAQUE admin dans liste_admins:
+        créer notification pour admin:
+            message = détails du changement
+
+EXEMPLE D'UTILISATION:
+----------------------
+Automatique lors de la mise à jour d'une expédition:
+PUT /api/logistics/expeditions/123/
+{
+    "statut": "livre"
+}
+
+AVANTAGES:
+----------
+- Traçabilité complète
+- Transparence pour les clients
+- Alerte automatique des responsables
+- Historique consultable
+
+
+===============================================================================
+4. TRACKING TEMPS RÉEL (WEBSOCKET)
+===============================================================================
+
+OBJECTIF:
+Permettre le suivi en temps réel des expéditions et tournées via WebSocket.
+
+COMMENT ÇA MARCHE:
+------------------
+1. Le client se connecte via WebSocket à un "canal" spécifique
+2. Le serveur envoie les données actuelles immédiatement
+3. Toute mise à jour est diffusée en temps réel à tous les clients connectés
+
+ALGORITHME CONNEXION:
+----------------------
+FONCTION connexion_websocket(expedition_id):
+    créer nom_canal = "expedition_{expedition_id}"
+    rejoindre le canal
+    récupérer données actuelles de l'expédition
+    envoyer données au client
+    écouter les mises à jour
+
+ALGORITHME MISE À JOUR:
+------------------------
+FONCTION diffuser_mise_a_jour(expedition_id, nouvelles_données):
+    nom_canal = "expedition_{expedition_id}"
+    POUR CHAQUE client connecté au canal:
+        envoyer nouvelles_données au client
+
+TYPES DE CONSOMMATEURS:
+------------------------
+1. ExpeditionTrackingConsumer: Pour suivre une expédition
+2. TourneeTrackingConsumer: Pour suivre une tournée complète
+3. NotificationConsumer: Pour recevoir les notifications en temps réel
+
+EXEMPLE D'UTILISATION:
+----------------------
+JavaScript côté client:
+```
+const socket = new WebSocket('ws://localhost:8000/ws/expedition/123/');
+
+socket.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+    if (data.type === 'location_update') {
+        updateMap(data.data.latitude, data.data.longitude);
+    }
+};
+```
+
+AVANTAGES:
+----------
+- Mise à jour instantanée sans rafraîchissement
+- Réduit la charge serveur (pas de polling)
+- Expérience utilisateur fluide
+- Communication bidirectionnelle
+
+
+===============================================================================
+5. ALERTES ET NOTIFICATIONS POUR INCIDENTS
+===============================================================================
+
+OBJECTIF:
+Notifier automatiquement les clients et la direction lors d'incidents.
+
+COMMENT ÇA MARCHE:
+------------------
+1. Lors de la création d'un incident, un signal Django est déclenché
+2. Le "NotificationService" crée des notifications ciblées
+3. Les notifications sont envoyées via la base de données et email
+
+ALGORITHME INCIDENT CRÉÉ:
+--------------------------
+FONCTION notifier_incident(incident):
+    // 1. Déterminer la sévérité
+    SI incident.severite == "critique" ALORS
+        priorite_email = HAUTE
+    SINON
+        priorite_email = NORMALE
+    
+    // 2. Notifier le client si applicable
+    SI incident a une expédition associée ALORS
+        client = incident.expedition.client
+        créer notification:
+            destinataire = client
+            titre = "Incident signalé"
+            message = détails incident
+            envoyer email = OUI
+    
+    // 3. Notifier tous les admins et direction
+    admins = trouver_utilisateurs(role="admin" OU department="management")
+    POUR CHAQUE admin dans admins:
+        créer notification:
+            destinataire = admin
+            titre = "Nouvel incident {type}"
+            message = détails complets
+            envoyer email = (priorite_email == HAUTE)
+
+ALGORITHME INCIDENT RÉSOLU:
+----------------------------
+FONCTION notifier_resolution(incident):
+    // Notifier client du succès
+    SI incident.expedition.client existe ALORS
+        envoyer notification "Incident résolu"
+    
+    // Notifier admins
+    informer équipe de management
+
+TYPES DE NOTIFICATIONS:
+-----------------------
+- info: Information simple
+- warning: Avertissement
+- error: Erreur système
+- success: Confirmation de succès
+
+EXEMPLE D'UTILISATION:
+----------------------
+Automatique lors de la création d'incident:
+POST /api/support/incidents/
+{
+    "type": "retard",
+    "severite": "critique",
+    "expedition": 123
+}
+
+AVANTAGES:
+----------
+- Réaction rapide aux problèmes
+- Transparence client
+- Traçabilité des communications
+- Priorisation automatique
+
+
+===============================================================================
+6. RAPPORTS STATISTIQUES
+===============================================================================
+
+OBJECTIF:
+Générer des rapports détaillés sur les incidents et réclamations.
+
+COMMENT ÇA MARCHE:
+------------------
+Le service "IncidentReportService" agrège les données et calcule 
+des statistiques utiles.
+
+ALGORITHME RÉSUMÉ INCIDENTS:
+-----------------------------
+FONCTION obtenir_resume_incidents(date_debut, date_fin):
+    incidents = filtrer incidents entre dates
+    
+    calculer:
+        total = nombre d'incidents
+        par_type = compter par type (retard, perte, etc.)
+        par_severite = compter par sévérité
+        par_priorite = compter par priorité
+        resolus = incidents avec date_resolution
+        en_cours = incidents sans date_resolution
+        
+    calculer taux_resolution = (resolus / total) * 100
+    
+    calculer temps_moyen_resolution:
+        POUR CHAQUE incident résolu:
+            temps = date_resolution - date_creation
+        moyenne = somme(temps) / nombre
+
+    retourner {
+        total, par_type, par_severite,
+        resolus, en_cours, taux_resolution,
+        temps_moyen_resolution
+    }
+
+ALGORITHME TENDANCES:
+---------------------
+FONCTION obtenir_tendances(jours):
+    date_debut = aujourd'hui - jours
+    
+    POUR CHAQUE jour depuis date_debut:
+        compter incidents du jour
+        ajouter à graphique
+    
+    retourner données pour graphique
+
+MÉTRIQUES DISPONIBLES:
+----------------------
+1. Résumé des incidents:
+   - Total par période
+   - Répartition par type
+   - Répartition par sévérité
+   - Taux de résolution
+   - Temps moyen de résolution
+
+2. Tendances temporelles:
+   - Évolution quotidienne
+   - Évolution mensuelle
+
+3. Top incidents:
+   - Types les plus fréquents
+   - Incidents par statut d'expédition
+
+4. Incidents critiques:
+   - Liste des incidents non résolus de haute priorité
+
+EXEMPLE D'UTILISATION:
+----------------------
+GET /api/dashboard/reports/incidents/?days=30
+GET /api/dashboard/reports/reclamations/?start_date=2024-01-01
+
+AVANTAGES:
+----------
+- Vision d'ensemble rapide
+- Identification des problèmes récurrents
+- Aide à la décision
+- Suivi de performance
+
+
+===============================================================================
+7. KPIS ET PRÉVISIONS AVANCÉES POUR DASHBOARD
+===============================================================================
+
+OBJECTIF:
+Fournir des indicateurs clés de performance et des prévisions pour 
+le tableau de bord.
+
+COMMENT ÇA MARCHE:
+------------------
+Le "DashboardKPIService" calcule en temps réel les métriques importantes.
+
+ALGORITHME KPIs GLOBAUX:
+-------------------------
+FONCTION obtenir_kpis_globaux(periode_jours):
+    date_debut = aujourd'hui - periode_jours
+    
+    // 1. Statistiques expéditions
+    total_expeditions = compter expéditions depuis date_debut
+    livrees = compter expéditions avec statut "livre"
+    echecs = compter expéditions avec statut "echec"
+    taux_succes = (livrees / total_expeditions) * 100
+    
+    // 2. Statistiques revenus
+    total_revenus = somme montants factures depuis date_debut
+    revenus_payes = somme montants factures payées
+    taux_collection = (revenus_payes / total_revenus) * 100
+    
+    // 3. Statistiques incidents
+    total_incidents = compter incidents depuis date_debut
+    incidents_resolus = compter incidents avec resolution
+    taux_resolution = (incidents_resolus / total_incidents) * 100
+    
+    // 4. Statistiques clients
+    clients_actifs = compter clients avec expéditions récentes
+    
+    // 5. Statistiques tournées
+    total_tournees = compter tournées depuis date_debut
+    kilometres_totaux = somme kilometrages tournées
+    moyenne_km_par_tournee = kilometres_totaux / total_tournees
+    
+    retourner tous les KPIs
+
+ALGORITHME PRÉVISIONS:
+-----------------------
+FONCTION prevoir_expeditions(jours_futurs):
+    // Calcul simple basé sur la moyenne des 30 derniers jours
+    date_debut = aujourd'hui - 30 jours
+    expeditions_historique = compter expeditions depuis date_debut
+    moyenne_journaliere = expeditions_historique / 30
+    
+    previsions = []
+    POUR i de 1 à jours_futurs:
+        date_future = aujourd'hui + i jours
+        prevision = {
+            date: date_future,
+            nombre_prevu: arrondir(moyenne_journaliere)
+        }
+        ajouter prevision à previsions
+    
+    retourner previsions
+
+ALGORITHME MÉTRIQUES PERFORMANCE:
+----------------------------------
+FONCTION obtenir_metriques_performance():
+    // 1. Temps moyen de livraison
+    expeditions_livrees = filtrer expeditions avec statut "livre"
+    temps_livraisons = []
+    POUR CHAQUE exp dans expeditions_livrees:
+        temps = exp.date_livraison - exp.date_creation
+        ajouter temps à temps_livraisons
+    temps_moyen = moyenne(temps_livraisons)
+    
+    // 2. Performance chauffeurs
+    POUR CHAQUE chauffeur actif:
+        calculer:
+            - nombre de tournées
+            - kilomètres totaux
+            - nombre d'incidents
+        trier par nombre de tournées
+    
+    retourner {
+        temps_moyen_livraison,
+        top_10_chauffeurs
+    }
+
+KPIS DISPONIBLES:
+-----------------
+1. Expéditions:
+   - Total, livrées, échecs, taux de succès
+   
+2. Revenus:
+   - Total, payé, en attente, taux de collection
+   
+3. Incidents:
+   - Total, résolus, en cours, taux de résolution
+   
+4. Clients:
+   - Nombre de clients actifs
+   
+5. Tournées:
+   - Total, kilomètres, moyenne par tournée
+   
+6. Prévisions:
+   - Expéditions prévues pour les N prochains jours
+   
+7. Performance:
+   - Temps moyen de livraison
+   - Classement des chauffeurs
+
+EXEMPLE D'UTILISATION:
+----------------------
+GET /api/dashboard/kpis/advanced/?period_days=30&forecast_days=7
+
+Réponse:
+```json
+{
+    "kpis": {
+        "expeditions": {
+            "total": 450,
+            "delivered": 420,
+            "failed": 15,
+            "success_rate": 93.3,
+            "in_transit": 15
+        },
+        "revenue": {
+            "total": 125000,
+            "paid": 110000,
+            "pending": 15000,
+            "collection_rate": 88
+        }
+    },
+    "forecast": [
+        {"date": "2024-01-23", "predicted_count": 15},
+        {"date": "2024-01-24", "predicted_count": 15}
+    ]
+}
+```
+
+AVANTAGES:
+----------
+- Vue d'ensemble complète en un coup d'œil
+- Prévisions pour planification
+- Identification rapide des problèmes
+- Suivi de tendances
+
+
+===============================================================================
+8. JOURNALISATION D'AUDIT COMPLÈTE
+===============================================================================
+
+OBJECTIF:
+Enregistrer toutes les actions effectuées dans le système pour audit et 
+traçabilité.
+
+COMMENT ÇA MARCHE:
+------------------
+1. Un middleware intercepte toutes les requêtes
+2. Un modèle "AuditLog" enregistre chaque action
+3. Les ViewSets appellent log_action() sur create/update/delete
+
+ALGORITHME MIDDLEWARE:
+----------------------
+FONCTION traiter_requete(requete):
+    // Extraire informations de la requête
+    adresse_ip = obtenir_ip(requete)
+    user_agent = requete.headers['User-Agent']
+    
+    // Attacher aux métadonnées de la requête
+    requete._audit_ip = adresse_ip
+    requete._audit_user_agent = user_agent
+    
+    continuer traitement
+
+ALGORITHME JOURNALISATION:
+--------------------------
+FONCTION log_action(utilisateur, action, objet, changements, requete):
+    SI utilisateur est authentifié ALORS
+        // Obtenir type de contenu
+        content_type = obtenir_content_type(objet)
+        
+        // Créer enregistrement d'audit
+        créer AuditLog:
+            user = utilisateur
+            action = action  // 'create', 'update', 'delete', 'view', 'export'
+            content_type = content_type
+            object_id = objet.id
+            object_repr = str(objet)[0:200]  // Limiter à 200 caractères
+            changes = changements en JSON
+            ip_address = requete._audit_ip
+            user_agent = requete._audit_user_agent
+            timestamp = maintenant()
+        
+        sauvegarder
+
+TYPES D'ACTIONS:
+----------------
+- create: Création d'un objet
+- update: Modification d'un objet
+- delete: Suppression d'un objet
+- view: Consultation d'un objet
+- export: Exportation de données
+
+EXEMPLE D'UTILISATION:
+----------------------
+Automatique lors de toute opération:
+POST /api/core/clients/
+→ Crée automatiquement un log: "user X created Client Y"
+
+Consultation manuelle:
+GET /api/users/audit-logs/?user=5
+GET /api/users/audit-logs/?action=delete
+
+INFORMATIONS ENREGISTRÉES:
+--------------------------
+- Qui: utilisateur authentifié
+- Quoi: type d'action et objet affecté
+- Quand: timestamp précis
+- Où: adresse IP
+- Comment: navigateur/application (user agent)
+- Détails: changements effectués (pour updates)
+
+AVANTAGES:
+----------
+- Conformité réglementaire
+- Investigation de problèmes
+- Détection d'activités suspectes
+- Historique complet consultable
+
+
+===============================================================================
+9. SAUVEGARDE ET MONITORING CELERY
+===============================================================================
+
+OBJECTIF:
+Sauvegarder régulièrement la base de données et surveiller les tâches Celery.
+
+COMMENT ÇA MARCHE - SAUVEGARDE:
+--------------------------------
+1. Une commande Django "backup_db" est disponible
+2. Elle peut être exécutée manuellement ou via cron/scheduler
+3. Crée une copie de la base de données avec timestamp
+
+ALGORITHME SAUVEGARDE:
+----------------------
+FONCTION backup_database(repertoire_sortie):
+    // Créer répertoire si inexistant
+    créer repertoire_sortie SI n'existe pas
+    
+    // Générer nom de fichier avec timestamp
+    timestamp = maintenant().format("YYYYMMDD_HHMMSS")
+    nom_fichier = "db_backup_{timestamp}.sqlite3"
+    chemin_complet = repertoire_sortie / nom_fichier
+    
+    // Obtenir chemin de la base actuelle
+    chemin_db = settings.DATABASES['default']['NAME']
+    
+    // Copier le fichier
+    SI base est SQLite ALORS
+        copier chemin_db vers chemin_complet
+        retourner succès
+    SINON
+        afficher "Configurer pour PostgreSQL/MySQL"
+        retourner échec
+
+UTILISATION SAUVEGARDE:
+-----------------------
+Ligne de commande:
+```
+python manage.py backup_db --output-dir=backups
+```
+
+Tâche Celery périodique (à configurer):
+```python
+@periodic_task(run_every=timedelta(days=1))
+def daily_backup():
+    call_command('backup_db')
+```
+
+COMMENT ÇA MARCHE - MONITORING CELERY:
+---------------------------------------
+Le "CeleryMonitorService" interroge l'infrastructure Celery pour obtenir
+l'état des tâches.
+
+ALGORITHME MONITORING:
+----------------------
+FONCTION obtenir_status_celery():
+    // 1. Tâches actives (en cours d'exécution)
+    inspector = celery.control.inspect()
+    taches_actives = inspector.active()
+    
+    // 2. Tâches planifiées (en attente)
+    taches_planifiees = inspector.scheduled()
+    
+    // 3. Workers (serveurs de tâches)
+    statistiques_workers = inspector.stats()
+    
+    // 4. Tâches enregistrées
+    taches_enregistrees = inspector.registered()
+    
+    retourner {
+        taches_actives: liste et détails,
+        taches_planifiees: liste et détails,
+        workers: informations workers,
+        taches_enregistrees: liste des types de tâches
+    }
+
+FONCTION obtenir_status_tache(task_id):
+    resultat = AsyncResult(task_id)
+    
+    retourner {
+        task_id: task_id,
+        status: resultat.status,  // PENDING, STARTED, SUCCESS, FAILURE
+        result: resultat.result SI succès,
+        error: resultat.traceback SI échec,
+        ready: resultat.ready(),  // Terminé?
+        successful: resultat.successful()  // Succès?
+    }
+
+FONCTION annuler_tache(task_id):
+    resultat = AsyncResult(task_id)
+    resultat.revoke(terminate=True)
+    retourner succès
+
+FONCTIONNALITÉS MONITORING:
+----------------------------
+1. Status global:
+   - Liste des tâches actives
+   - Liste des tâches planifiées
+   - Informations sur les workers
+   - Tâches enregistrées
+
+2. Status tâche individuelle:
+   - État actuel
+   - Résultat ou erreur
+   - Temps d'exécution
+
+3. Actions:
+   - Annuler une tâche
+   - Re-exécuter une tâche échouée
+   - Purger la queue
+
+4. Historique (avec cache Redis):
+   - Dernières tâches exécutées
+   - Temps d'exécution
+   - Taux de succès/échec
+
+EXEMPLE D'UTILISATION:
+----------------------
+GET /api/core/celery/status/
+→ Retourne l'état global de Celery
+
+GET /api/core/celery/task/abc123-def456/
+→ Retourne l'état d'une tâche spécifique
+
+POST /api/core/celery/task/abc123-def456/cancel/
+→ Annule une tâche en cours
+
+POST /api/core/celery/task/abc123-def456/retry/
+→ Re-exécute une tâche échouée
+
+AVANTAGES SAUVEGARDE:
+---------------------
+- Protection contre perte de données
+- Restauration facile en cas de problème
+- Historique des sauvegardes
+- Automatisation possible
+
+AVANTAGES MONITORING:
+---------------------
+- Détection rapide de problèmes
+- Gestion des tâches en temps réel
+- Visibilité sur la charge système
+- Dépannage facilité
+
+
+===============================================================================
+RÉSUMÉ DES ENDPOINTS API
+===============================================================================
+
+FAVORIS:
+--------
+POST   /api/users/favorites/add_favorite/
+POST   /api/users/favorites/remove_favorite/
+GET    /api/users/favorites/
+
+AUDIT:
+------
+GET    /api/users/audit-logs/
+GET    /api/users/audit-logs/?user=5&action=delete
+
+EXPORTS:
+--------
+GET    /api/core/clients/export_csv/
+GET    /api/core/clients/export_pdf/
+GET    /api/core/chauffeurs/export_csv/
+GET    /api/core/chauffeurs/export_pdf/
+GET    /api/core/vehicules/export_csv/
+GET    /api/core/vehicules/export_pdf/
+GET    /api/core/destinations/export_csv/
+GET    /api/core/destinations/export_pdf/
+GET    /api/core/typeservices/export_csv/
+GET    /api/core/typeservices/export_pdf/
+GET    /api/core/tarifications/export_csv/
+GET    /api/core/tarifications/export_pdf/
+
+RAPPORTS:
+---------
+GET    /api/dashboard/reports/incidents/?days=30
+GET    /api/dashboard/reports/reclamations/?days=30
+GET    /api/dashboard/kpis/advanced/?period_days=30&forecast_days=7
+
+MONITORING CELERY:
+------------------
+GET    /api/core/celery/status/
+GET    /api/core/celery/task/{task_id}/
+POST   /api/core/celery/task/{task_id}/cancel/
+POST   /api/core/celery/task/{task_id}/retry/
+POST   /api/core/celery/purge/
+
+WEBSOCKET:
+----------
+ws://localhost:8000/ws/expedition/{id}/
+ws://localhost:8000/ws/tournee/{id}/
+ws://localhost:8000/ws/notifications/
+
+
+===============================================================================
+COMMANDES SYSTÈME
+===============================================================================
+
+MIGRATIONS:
+-----------
+python manage.py makemigrations
+python manage.py migrate
+
+SAUVEGARDE:
+-----------
+python manage.py backup_db --output-dir=backups
+
+TESTS:
+------
+python manage.py test
+python manage.py test apps.core
+pytest
+
+SERVEUR:
+--------
+python manage.py runserver
+
+CELERY WORKER:
+--------------
+celery -A transport_manager worker -l info
+
+CELERY BEAT (tâches périodiques):
+----------------------------------
+celery -A transport_manager beat -l info
+
+
+===============================================================================
+FIN DE LA DOCUMENTATION
+===============================================================================
+
+Pour toute question ou assistance, consulter le README.md ou contacter
+l'équipe de développement.
+
+Version: 2.0
+Date: Janvier 2026

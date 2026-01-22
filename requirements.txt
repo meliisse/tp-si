@@ -1,0 +1,50 @@
+﻿Django>=4.2
+reportlab
+djangorestframework
+djangorestframework-simplejwt
+django-filter
+drf-yasg
+redis>=4.5.0
+celery>=5.3.0
+django-cors-headers>=4.0.0
+Pillow>=9.0.0
+django-storages>=1.13.0
+boto3>=1.26.0
+django-redis>=5.2.0
+psycopg2-binary>=2.9.0
+gunicorn>=20.1.0
+whitenoise>=6.4.0
+django-environ>=0.9.0
+django-debug-toolbar>=4.0.0
+coverage>=7.0.0
+factory-boy>=3.2.0
+faker>=15.0.0
+
+# Monitoring and Error Tracking
+sentry-sdk>=1.15.0
+
+# Testing dependencies
+pytest>=7.0.0
+pytest-django>=4.5.0
+pytest-cov>=4.0.0
+pytest-xdist>=3.0.0
+model-bakery>=1.10.0
+
+# WebSocket support
+channels==4.0.0
+daphne>=4.0.0
+channels-redis>=4.0.0
+
+# AI/ML support
+scikit-learn>=1.3.0
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Geographic maps
+folium>=0.14.0
+
+# SMS notifications
+twilio>=8.0.0
+
+# Enhanced authentication
+django-allauth>=0.57.0

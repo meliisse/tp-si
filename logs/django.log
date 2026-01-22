@@ -1,0 +1,508 @@
+INFO 2026-01-14 21:36:23,097 autoreload 16372 6568 Watching for file changes with StatReloader
+INFO 2026-01-14 21:37:38,333 autoreload 2368 3752 Watching for file changes with StatReloader
+INFO 2026-01-14 21:44:49,928 autoreload 22448 19740 Watching for file changes with StatReloader
+INFO 2026-01-14 21:45:24,321 autoreload 16372 6568 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-14 21:45:24,833 autoreload 22448 19740 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-14 21:45:24,847 autoreload 2368 3752 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-14 21:45:26,892 autoreload 10168 4208 Watching for file changes with StatReloader
+INFO 2026-01-14 21:45:27,313 autoreload 9356 9752 Watching for file changes with StatReloader
+INFO 2026-01-14 21:45:27,318 autoreload 16324 15808 Watching for file changes with StatReloader
+INFO 2026-01-14 21:45:37,926 autoreload 14272 2268 Watching for file changes with StatReloader
+WARNING 2026-01-14 21:46:01,595 log 10168 16900 Not Found: /
+WARNING 2026-01-14 21:46:01,596 log 10168 16900 "GET / HTTP/1.1" 404 1243
+WARNING 2026-01-14 21:46:02,269 log 10168 16900 Not Found: /favicon.ico
+WARNING 2026-01-14 21:46:02,272 log 10168 16900 "GET /favicon.ico HTTP/1.1" 404 1199
+INFO 2026-01-14 21:46:21,983 log 10168 16900 "GET /admin HTTP/1.1" 301 0
+INFO 2026-01-14 21:46:22,028 log 10168 16900 "GET /admin/ HTTP/1.1" 302 0
+INFO 2026-01-14 21:46:22,115 log 10168 16900 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 1594
+INFO 2026-01-14 21:46:22,491 log 10168 9036 "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2026-01-14 21:46:22,496 log 10168 16900 "GET /static/admin/css/base.css HTTP/1.1" 200 23100
+INFO 2026-01-14 21:46:22,504 log 10168 13908 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2026-01-14 21:46:22,505 log 10168 15292 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 3538
+INFO 2026-01-14 21:46:22,507 log 10168 18636 "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2026-01-14 21:46:22,509 log 10168 14420 "GET /static/admin/css/responsive.css HTTP/1.1" 200 16194
+INFO 2026-01-14 21:46:22,517 log 10168 14420 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+ERROR 2026-01-14 21:46:32,117 log 10168 14420 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: users_user
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\contrib\admin\sites.py", line 450, in login
+    return LoginView.as_view(**defaults)(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\views\decorators\debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\contrib\auth\views.py", line 89, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\views\generic\base.py", line 145, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\views\generic\edit.py", line 150, in post
+    if form.is_valid():
+       ~~~~~~~~~~~~~^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\forms\forms.py", line 206, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\forms\forms.py", line 201, in errors
+    self.full_clean()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\forms\forms.py", line 338, in full_clean
+    self._clean_form()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\forms\forms.py", line 354, in _clean_form
+    cleaned_data = self.clean()
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\views\decorators\debug.py", line 75, in sensitive_variables_wrapper
+    return func(*func_args, **func_kwargs)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\contrib\auth\forms.py", line 349, in clean
+    self.user_cache = authenticate(
+                      ~~~~~~~~~~~~^
+        self.request, username=username, password=password
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\views\decorators\debug.py", line 75, in sensitive_variables_wrapper
+    return func(*func_args, **func_kwargs)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 114, in authenticate
+    user = backend.authenticate(request, **credentials)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\contrib\auth\backends.py", line 65, in authenticate
+    user = UserModel._default_manager.get_by_natural_key(username)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\contrib\auth\base_user.py", line 37, in get_by_natural_key
+    return self.get(**{self.model.USERNAME_FIELD: username})
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\models\query.py", line 635, in get
+    num = len(clone)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\models\query.py", line 372, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: users_user
+ERROR 2026-01-14 21:46:32,142 log 10168 14420 "POST /admin/login/?next=/admin/ HTTP/1.1" 500 25405
+INFO 2026-01-14 21:46:46,610 log 10168 14420 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 1585
+WARNING 2026-01-14 21:47:00,191 log 10168 14420 Not Found: /dashboard/
+WARNING 2026-01-14 21:47:00,192 log 10168 14420 "GET /dashboard/ HTTP/1.1" 404 1279
+WARNING 2026-01-14 21:47:03,511 log 10168 14420 Not Found: /dashboard/
+WARNING 2026-01-14 21:47:03,511 log 10168 14420 "GET /dashboard/ HTTP/1.1" 404 1252
+INFO 2026-01-21 22:08:51,936 autoreload 2496 1632 Watching for file changes with StatReloader
+WARNING 2026-01-21 22:08:59,465 log 2496 19452 Not Found: /
+WARNING 2026-01-21 22:08:59,466 log 2496 19452 "GET / HTTP/1.1" 404 1229
+WARNING 2026-01-21 22:09:00,631 log 2496 19452 Not Found: /favicon.ico
+WARNING 2026-01-21 22:09:00,633 log 2496 19452 "GET /favicon.ico HTTP/1.1" 404 1278
+INFO 2026-01-21 22:17:50,855 autoreload 2496 1632 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\core\serializers.py changed, reloading.
+INFO 2026-01-21 22:17:53,727 autoreload 2140 8240 Watching for file changes with StatReloader
+INFO 2026-01-21 22:18:23,999 autoreload 2140 8240 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\logistics\api_views.py changed, reloading.
+INFO 2026-01-21 22:18:27,129 autoreload 9880 9672 Watching for file changes with StatReloader
+INFO 2026-01-21 23:45:48,487 autoreload 9684 3764 Watching for file changes with StatReloader
+WARNING 2026-01-21 23:46:24,491 log 6836 9436 Not Found: /api/billing/factures/
+WARNING 2026-01-21 23:46:28,896 log 6836 9436 Not Found: /api/billing/paiements/
+WARNING 2026-01-21 23:46:32,255 log 6836 9436 Not Found: /api/logistics/expeditions/
+WARNING 2026-01-21 23:52:21,702 log 19524 11744 Not Found: /api/billing/factures/
+WARNING 2026-01-21 23:52:24,930 log 19524 11744 Not Found: /api/billing/paiements/
+WARNING 2026-01-21 23:52:25,119 log 19524 11744 Unauthorized: /core/api/chauffeurs/
+WARNING 2026-01-21 23:52:25,167 log 19524 11744 Unauthorized: /core/api/chauffeurs/1/
+WARNING 2026-01-21 23:52:25,186 log 19524 11744 Unauthorized: /core/api/clients/
+WARNING 2026-01-21 23:52:25,193 log 19524 11744 Unauthorized: /core/api/clients/1/
+WARNING 2026-01-21 23:52:25,258 log 19524 11744 Unauthorized: /core/api/clients/1/
+WARNING 2026-01-21 23:52:25,487 log 19524 11744 Unauthorized: /core/api/destinations/
+WARNING 2026-01-21 23:52:25,558 log 19524 11744 Unauthorized: /core/api/tarification/
+WARNING 2026-01-21 23:52:25,625 log 19524 11744 Unauthorized: /core/api/tarification/1/
+WARNING 2026-01-21 23:52:25,676 log 19524 11744 Unauthorized: /core/api/typeservice/
+WARNING 2026-01-21 23:52:25,701 log 19524 11744 Unauthorized: /core/api/vehicules/
+WARNING 2026-01-21 23:52:25,719 log 19524 11744 Unauthorized: /core/api/vehicules/1/
+WARNING 2026-01-21 23:52:27,801 log 19524 11744 Not Found: /api/logistics/expeditions/
+INFO 2026-01-22 00:02:31,745 autoreload 18960 8392 Watching for file changes with StatReloader
+WARNING 2026-01-22 00:02:57,261 log 9684 18020 Not Found: /
+WARNING 2026-01-22 00:02:57,264 log 9684 18020 "GET / HTTP/1.1" 404 1185
+INFO 2026-01-22 00:03:08,935 log 9684 18020 "GET /admin HTTP/1.1" 301 0
+INFO 2026-01-22 00:03:09,020 log 9684 18020 "GET /admin/ HTTP/1.1" 302 0
+INFO 2026-01-22 00:03:09,135 log 9684 18020 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 1578
+INFO 2026-01-22 00:03:09,628 log 9684 22936 "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2026-01-22 00:03:09,632 log 9684 17212 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2026-01-22 00:03:09,741 log 9684 9208 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 3538
+INFO 2026-01-22 00:03:09,757 log 9684 14888 "GET /static/admin/css/responsive.css HTTP/1.1" 200 16194
+INFO 2026-01-22 00:03:09,761 log 9684 10776 "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2026-01-22 00:03:09,771 log 9684 18020 "GET /static/admin/css/base.css HTTP/1.1" 200 23100
+INFO 2026-01-22 00:03:09,783 log 9684 10776 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+WARNING 2026-01-22 00:03:10,665 log 13588 4168 Not Found: /api/billing/factures/
+WARNING 2026-01-22 00:03:14,598 log 13588 4168 Not Found: /api/billing/paiements/
+WARNING 2026-01-22 00:03:14,722 log 13588 4168 Unauthorized: /core/api/chauffeurs/
+WARNING 2026-01-22 00:03:14,760 log 13588 4168 Unauthorized: /core/api/chauffeurs/1/
+WARNING 2026-01-22 00:03:14,778 log 13588 4168 Unauthorized: /core/api/clients/
+WARNING 2026-01-22 00:03:14,784 log 13588 4168 Unauthorized: /core/api/clients/1/
+WARNING 2026-01-22 00:03:14,831 log 13588 4168 Unauthorized: /core/api/clients/1/
+WARNING 2026-01-22 00:03:15,031 log 13588 4168 Unauthorized: /core/api/destinations/
+WARNING 2026-01-22 00:03:15,056 log 13588 4168 Unauthorized: /core/api/tarification/
+WARNING 2026-01-22 00:03:15,079 log 13588 4168 Unauthorized: /core/api/tarification/1/
+WARNING 2026-01-22 00:03:15,102 log 13588 4168 Unauthorized: /core/api/typeservice/
+WARNING 2026-01-22 00:03:15,127 log 13588 4168 Unauthorized: /core/api/vehicules/
+WARNING 2026-01-22 00:03:15,148 log 13588 4168 Unauthorized: /core/api/vehicules/1/
+WARNING 2026-01-22 00:03:18,509 log 13588 4168 Not Found: /api/logistics/expeditions/
+INFO 2026-01-22 00:03:26,863 log 9684 10776 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 1759
+INFO 2026-01-22 00:03:42,133 log 9684 10776 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 1805
+INFO 2026-01-22 00:04:37,634 basehttp 9684 10776 - Broken pipe from ('127.0.0.1', 64751)
+INFO 2026-01-22 00:04:41,140 log 9684 18020 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 1747
+INFO 2026-01-22 00:05:27,635 autoreload 10712 11516 Watching for file changes with StatReloader
+WARNING 2026-01-22 00:06:11,851 log 17796 9916 Not Found: /api/billing/factures/
+WARNING 2026-01-22 00:06:14,545 log 17796 9916 Not Found: /api/billing/paiements/
+WARNING 2026-01-22 00:06:14,684 log 17796 9916 Unauthorized: /core/api/chauffeurs/
+WARNING 2026-01-22 00:06:14,719 log 17796 9916 Unauthorized: /core/api/chauffeurs/1/
+WARNING 2026-01-22 00:06:14,739 log 17796 9916 Unauthorized: /core/api/clients/
+WARNING 2026-01-22 00:06:14,743 log 17796 9916 Unauthorized: /core/api/clients/1/
+WARNING 2026-01-22 00:06:14,785 log 17796 9916 Unauthorized: /core/api/clients/1/
+WARNING 2026-01-22 00:06:14,923 log 17796 9916 Unauthorized: /core/api/destinations/
+WARNING 2026-01-22 00:06:14,956 log 17796 9916 Unauthorized: /core/api/tarification/
+WARNING 2026-01-22 00:06:15,008 log 17796 9916 Unauthorized: /core/api/tarification/1/
+WARNING 2026-01-22 00:06:15,044 log 17796 9916 Unauthorized: /core/api/typeservice/
+WARNING 2026-01-22 00:06:15,079 log 17796 9916 Unauthorized: /core/api/vehicules/
+WARNING 2026-01-22 00:06:15,119 log 17796 9916 Unauthorized: /core/api/vehicules/1/
+WARNING 2026-01-22 00:06:18,632 log 17796 9916 Not Found: /api/logistics/expeditions/
+INFO 2026-01-22 00:07:53,441 autoreload 18960 8392 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\billing\api_views.py changed, reloading.
+INFO 2026-01-22 00:07:53,523 autoreload 9684 3764 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\billing\api_views.py changed, reloading.
+INFO 2026-01-22 00:07:53,545 autoreload 10712 11516 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\billing\api_views.py changed, reloading.
+INFO 2026-01-22 00:07:56,389 autoreload 6752 8072 Watching for file changes with StatReloader
+INFO 2026-01-22 00:07:56,464 autoreload 17636 14432 Watching for file changes with StatReloader
+INFO 2026-01-22 00:07:56,509 autoreload 2092 4760 Watching for file changes with StatReloader
+INFO 2026-01-22 00:08:20,766 autoreload 6752 8072 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\core\api_views.py changed, reloading.
+INFO 2026-01-22 00:08:20,826 autoreload 17636 14432 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\core\api_views.py changed, reloading.
+INFO 2026-01-22 00:08:20,829 autoreload 2092 4760 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\core\api_views.py changed, reloading.
+INFO 2026-01-22 00:08:23,255 autoreload 6964 15476 Watching for file changes with StatReloader
+INFO 2026-01-22 00:08:23,302 autoreload 2132 3012 Watching for file changes with StatReloader
+INFO 2026-01-22 00:08:23,351 autoreload 15788 11532 Watching for file changes with StatReloader
+INFO 2026-01-22 00:08:40,805 autoreload 2132 3012 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\support\api_views.py changed, reloading.
+INFO 2026-01-22 00:08:40,857 autoreload 15788 11532 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\support\api_views.py changed, reloading.
+INFO 2026-01-22 00:08:40,857 autoreload 6964 15476 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\support\api_views.py changed, reloading.
+INFO 2026-01-22 00:08:43,363 autoreload 18440 5320 Watching for file changes with StatReloader
+INFO 2026-01-22 00:08:43,380 autoreload 6636 21272 Watching for file changes with StatReloader
+INFO 2026-01-22 00:08:43,384 autoreload 7948 13144 Watching for file changes with StatReloader
+INFO 2026-01-22 00:08:51,405 autoreload 18440 5320 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\dashboard\api_views.py changed, reloading.
+INFO 2026-01-22 00:08:51,428 autoreload 7948 13144 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\dashboard\api_views.py changed, reloading.
+INFO 2026-01-22 00:08:51,435 autoreload 6636 21272 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\dashboard\api_views.py changed, reloading.
+INFO 2026-01-22 00:08:53,686 autoreload 5168 9444 Watching for file changes with StatReloader
+INFO 2026-01-22 00:08:53,721 autoreload 14628 10236 Watching for file changes with StatReloader
+INFO 2026-01-22 00:08:53,721 autoreload 19908 17160 Watching for file changes with StatReloader
+INFO 2026-01-22 00:09:20,788 autoreload 19908 17160 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\dashboard\api_views.py changed, reloading.
+INFO 2026-01-22 00:09:21,827 autoreload 14628 10236 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\dashboard\api_views.py changed, reloading.
+INFO 2026-01-22 00:09:21,825 autoreload 5168 9444 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\dashboard\api_views.py changed, reloading.
+INFO 2026-01-22 00:09:23,667 autoreload 10404 14800 Watching for file changes with StatReloader
+INFO 2026-01-22 00:09:24,180 autoreload 19696 19224 Watching for file changes with StatReloader
+INFO 2026-01-22 00:09:24,214 autoreload 3788 14016 Watching for file changes with StatReloader
+INFO 2026-01-22 00:09:29,141 autoreload 10404 14800 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\dashboard\api_views.py changed, reloading.
+INFO 2026-01-22 00:09:29,378 autoreload 19696 19224 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\dashboard\api_views.py changed, reloading.
+INFO 2026-01-22 00:09:29,402 autoreload 3788 14016 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\dashboard\api_views.py changed, reloading.
+INFO 2026-01-22 00:09:31,645 autoreload 15164 16468 Watching for file changes with StatReloader
+INFO 2026-01-22 00:09:31,806 autoreload 16580 13668 Watching for file changes with StatReloader
+INFO 2026-01-22 00:09:31,887 autoreload 11044 18768 Watching for file changes with StatReloader
+INFO 2026-01-22 00:16:24,819 autoreload 15164 16468 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\api_views.py changed, reloading.
+INFO 2026-01-22 00:16:24,846 autoreload 11044 18768 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\api_views.py changed, reloading.
+INFO 2026-01-22 00:16:24,874 autoreload 16580 13668 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\api_views.py changed, reloading.
+INFO 2026-01-22 00:16:26,984 autoreload 16732 8400 Watching for file changes with StatReloader
+INFO 2026-01-22 00:16:26,989 autoreload 14112 13528 Watching for file changes with StatReloader
+INFO 2026-01-22 00:16:27,002 autoreload 19692 12044 Watching for file changes with StatReloader
+INFO 2026-01-22 00:18:12,808 autoreload 19692 12044 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\api_views.py changed, reloading.
+INFO 2026-01-22 00:18:12,814 autoreload 16732 8400 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\api_views.py changed, reloading.
+INFO 2026-01-22 00:18:12,850 autoreload 14112 13528 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\api_views.py changed, reloading.
+INFO 2026-01-22 00:18:15,255 autoreload 4420 9144 Watching for file changes with StatReloader
+INFO 2026-01-22 00:18:15,280 autoreload 12404 13184 Watching for file changes with StatReloader
+INFO 2026-01-22 00:18:15,310 autoreload 17112 9900 Watching for file changes with StatReloader
+INFO 2026-01-22 00:18:53,641 autoreload 17112 9900 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\serializers.py changed, reloading.
+INFO 2026-01-22 00:18:53,652 autoreload 4420 9144 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\serializers.py changed, reloading.
+INFO 2026-01-22 00:18:53,667 autoreload 12404 13184 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\serializers.py changed, reloading.
+INFO 2026-01-22 00:18:56,394 autoreload 10196 1176 Watching for file changes with StatReloader
+INFO 2026-01-22 00:18:56,402 autoreload 18488 23516 Watching for file changes with StatReloader
+INFO 2026-01-22 00:18:56,434 autoreload 13624 10756 Watching for file changes with StatReloader
+INFO 2026-01-22 00:29:33,769 autoreload 10196 1176 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\models.py changed, reloading.
+INFO 2026-01-22 00:29:33,776 autoreload 18488 23516 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\models.py changed, reloading.
+INFO 2026-01-22 00:29:33,824 autoreload 13624 10756 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\models.py changed, reloading.
+INFO 2026-01-22 00:29:36,049 autoreload 9136 6752 Watching for file changes with StatReloader
+
+INFO 2026-01-22 00:29:36,050 autoreload 7484 3604 Watching for file changes with StatReloader
+INFO 2026-01-22 00:39:29,365 autoreload 7348 11132 Watching for file changes with StatReloader
+INFO 2026-01-22 00:41:53,191 autoreload 9136 6752 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\core\api_views.py changed, reloading.
+INFO 2026-01-22 00:41:53,196 autoreload 7484 3604 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\core\api_views.py changed, reloading.
+INFO 2026-01-22 00:41:53,201 autoreload 1696 22464 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\core\api_views.py changed, reloading.
+INFO 2026-01-22 00:41:56,278 autoreload 12432 2332 Watching for file changes with StatReloader
+INFO 2026-01-22 00:41:56,278 autoreload 3420 20876 Watching for file changes with StatReloader
+INFO 2026-01-22 00:41:56,302 autoreload 15576 6104 Watching for file changes with StatReloader
+INFO 2026-01-22 00:47:58,385 autoreload 3420 20876 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-22 00:47:58,441 autoreload 12432 2332 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-22 00:47:58,722 autoreload 15576 6104 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-22 00:47:58,760 autoreload 7348 11132 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-22 00:48:00,461 autoreload 8748 15836 Watching for file changes with StatReloader
+INFO 2026-01-22 00:48:00,462 autoreload 3992 12048 Watching for file changes with StatReloader
+INFO 2026-01-22 00:48:00,605 autoreload 23240 1664 Watching for file changes with StatReloader
+INFO 2026-01-22 00:48:00,675 autoreload 4348 19428 Watching for file changes with StatReloader
+WARNING 2026-01-22 01:43:37,940 log 6988 13848 Not Found: /api/billing/factures/
+WARNING 2026-01-22 01:43:40,588 log 6988 13848 Not Found: /api/billing/paiements/
+WARNING 2026-01-22 01:43:40,764 log 6988 13848 Unauthorized: /core/api/chauffeurs/
+WARNING 2026-01-22 01:43:40,770 log 6988 13848 Unauthorized: /core/api/chauffeurs/
+WARNING 2026-01-22 01:43:40,774 log 6988 13848 Unauthorized: /core/api/chauffeurs/1/
+WARNING 2026-01-22 01:43:40,790 log 6988 13848 Unauthorized: /core/api/clients/
+WARNING 2026-01-22 01:43:40,795 log 6988 13848 Unauthorized: /core/api/clients/1/
+WARNING 2026-01-22 01:43:40,801 log 6988 13848 Unauthorized: /core/api/clients/1/
+WARNING 2026-01-22 01:43:40,806 log 6988 13848 Unauthorized: /core/api/clients/
+WARNING 2026-01-22 01:43:40,812 log 6988 13848 Unauthorized: /core/api/clients/
+WARNING 2026-01-22 01:43:40,821 log 6988 13848 Unauthorized: /core/api/clients/
+WARNING 2026-01-22 01:43:40,825 log 6988 13848 Unauthorized: /core/api/clients/1/
+WARNING 2026-01-22 01:43:40,988 log 6988 13848 Unauthorized: /core/api/destinations/
+WARNING 2026-01-22 01:43:40,995 log 6988 13848 Unauthorized: /core/api/destinations/
+WARNING 2026-01-22 01:43:41,012 log 6988 13848 Unauthorized: /core/api/tarification/
+WARNING 2026-01-22 01:43:41,021 log 6988 13848 Unauthorized: /core/api/tarification/
+WARNING 2026-01-22 01:43:41,028 log 6988 13848 Unauthorized: /core/api/tarification/1/
+WARNING 2026-01-22 01:43:41,048 log 6988 13848 Unauthorized: /core/api/typeservice/
+WARNING 2026-01-22 01:43:41,057 log 6988 13848 Unauthorized: /core/api/typeservice/
+WARNING 2026-01-22 01:43:41,074 log 6988 13848 Unauthorized: /core/api/vehicules/
+WARNING 2026-01-22 01:43:41,088 log 6988 13848 Unauthorized: /core/api/vehicules/
+WARNING 2026-01-22 01:43:41,095 log 6988 13848 Unauthorized: /core/api/vehicules/1/
+WARNING 2026-01-22 01:43:44,068 log 6988 13848 Not Found: /api/logistics/expeditions/
+WARNING 2026-01-22 01:46:21,197 log 16292 17092 Not Found: /api/billing/factures/
+WARNING 2026-01-22 01:46:23,819 log 16292 17092 Not Found: /api/billing/paiements/
+WARNING 2026-01-22 01:46:32,307 log 16292 17092 Unauthorized: /core/api/clients/
+WARNING 2026-01-22 01:46:32,314 log 16292 17092 Unauthorized: /core/api/clients/1/
+WARNING 2026-01-22 01:46:32,319 log 16292 17092 Unauthorized: /core/api/clients/1/
+WARNING 2026-01-22 01:46:32,327 log 16292 17092 Unauthorized: /core/api/clients/
+WARNING 2026-01-22 01:46:32,337 log 16292 17092 Unauthorized: /core/api/clients/
+WARNING 2026-01-22 01:46:32,345 log 16292 17092 Unauthorized: /core/api/clients/
+WARNING 2026-01-22 01:46:32,353 log 16292 17092 Unauthorized: /core/api/clients/1/
+WARNING 2026-01-22 01:46:32,470 log 16292 17092 Unauthorized: /core/api/destinations/
+WARNING 2026-01-22 01:46:32,475 log 16292 17092 Unauthorized: /core/api/destinations/
+WARNING 2026-01-22 01:46:53,256 log 16292 17092 Not Found: /api/logistics/expeditions/
+WARNING 2026-01-22 01:49:20,594 log 22784 13632 Not Found: /api/billing/factures/
+WARNING 2026-01-22 01:49:23,427 log 22784 13632 Not Found: /api/billing/paiements/
+WARNING 2026-01-22 01:50:18,329 log 22784 13632 Not Found: /api/logistics/expeditions/
+INFO 2026-01-22 01:51:25,640 autoreload 23240 1664 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\logistics\models.py changed, reloading.
+INFO 2026-01-22 01:51:25,701 autoreload 8748 15836 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\logistics\models.py changed, reloading.
+INFO 2026-01-22 01:51:25,758 autoreload 3992 12048 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\logistics\models.py changed, reloading.
+INFO 2026-01-22 01:51:25,815 autoreload 4348 19428 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\logistics\models.py changed, reloading.
+INFO 2026-01-22 01:51:29,934 autoreload 22024 19876 Watching for file changes with StatReloader
+INFO 2026-01-22 01:51:29,935 autoreload 12748 20296 Watching for file changes with StatReloader
+INFO 2026-01-22 01:51:29,935 autoreload 9920 12552 Watching for file changes with StatReloader
+INFO 2026-01-22 01:51:29,941 autoreload 8720 5052 Watching for file changes with StatReloader
+INFO 2026-01-22 01:51:39,718 autoreload 22024 19876 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\logistics\models.py changed, reloading.
+INFO 2026-01-22 01:51:39,769 autoreload 8720 5052 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\logistics\models.py changed, reloading.
+INFO 2026-01-22 01:51:39,778 autoreload 9920 12552 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\logistics\models.py changed, reloading.
+INFO 2026-01-22 01:51:39,834 autoreload 12748 20296 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\logistics\models.py changed, reloading.
+INFO 2026-01-22 01:51:42,843 autoreload 14828 18924 Watching for file changes with StatReloader
+INFO 2026-01-22 01:51:42,844 autoreload 21740 12456 Watching for file changes with StatReloader
+INFO 2026-01-22 01:51:42,844 autoreload 17980 1600 Watching for file changes with StatReloader
+INFO 2026-01-22 01:51:42,894 autoreload 2092 5852 Watching for file changes with StatReloader
+WARNING 2026-01-22 01:52:06,379 log 13304 16576 Bad Request: /billing/api/factures/
+WARNING 2026-01-22 01:52:09,443 log 13304 16576 Not Found: /api/billing/paiements/
+WARNING 2026-01-22 01:52:12,609 log 13304 16576 Bad Request: /logistics/api/expeditions/
+INFO 2026-01-22 01:53:51,193 autoreload 17980 1600 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-22 01:53:51,174 autoreload 21740 12456 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-22 01:53:51,213 autoreload 2092 5852 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-22 01:53:51,273 autoreload 14828 18924 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-22 01:53:53,803 autoreload 17908 15808 Watching for file changes with StatReloader
+INFO 2026-01-22 01:53:53,806 autoreload 15820 4948 Watching for file changes with StatReloader
+INFO 2026-01-22 01:53:53,853 autoreload 15532 15964 Watching for file changes with StatReloader
+INFO 2026-01-22 01:53:53,857 autoreload 3384 14476 Watching for file changes with StatReloader
+INFO 2026-01-22 01:54:13,528 autoreload 15532 15964 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-22 01:54:13,539 autoreload 3384 14476 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-22 01:54:13,570 autoreload 15820 4948 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-22 01:54:13,608 autoreload 17908 15808 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\transport_manager\settings.py changed, reloading.
+INFO 2026-01-22 01:54:16,470 autoreload 3400 22976 Watching for file changes with StatReloader
+INFO 2026-01-22 01:54:16,500 autoreload 23116 4372 Watching for file changes with StatReloader
+INFO 2026-01-22 01:54:16,563 autoreload 14736 10284 Watching for file changes with StatReloader
+INFO 2026-01-22 01:54:16,614 autoreload 22784 13004 Watching for file changes with StatReloader
+INFO 2026-01-22 01:54:28,185 autoreload 22784 13004 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\models.py changed, reloading.
+INFO 2026-01-22 01:54:28,228 autoreload 14736 10284 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\models.py changed, reloading.
+INFO 2026-01-22 01:54:28,292 autoreload 3400 22976 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\models.py changed, reloading.
+INFO 2026-01-22 01:54:28,299 autoreload 23116 4372 C:\Users\PC\OneDrive\Bureau\TP SI\transport_manager\apps\users\models.py changed, reloading.
+INFO 2026-01-22 01:54:31,171 autoreload 4568 14828 Watching for file changes with StatReloader
+INFO 2026-01-22 01:54:31,176 autoreload 21176 17364 Watching for file changes with StatReloader
+INFO 2026-01-22 01:54:31,184 autoreload 21364 8088 Watching for file changes with StatReloader
+INFO 2026-01-22 01:54:31,302 autoreload 5608 21200 Watching for file changes with StatReloader
+WARNING 2026-01-22 13:25:33,026 log 22512 15772 Bad Request: /billing/api/factures/
+WARNING 2026-01-22 13:25:33,375 log 22512 15772 Not Found: /api/billing/paiements/
+ERROR 2026-01-22 13:25:38,482 log 22512 15772 Internal Server Error: /core/api/tarifications/1/
+Traceback (most recent call last):
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\rest_framework\viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\rest_framework\mixins.py", line 82, in partial_update
+    return self.update(request, *args, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\rest_framework\mixins.py", line 68, in update
+    self.perform_update(serializer)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\smily\OneDrive\Documents\Django\Backend si\tp-si-main\apps\core\api_views.py", line 244, in perform_update
+    log_action(self.request.user, 'update', obj,
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+              changes=serializer.validated_data, request=self.request)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\smily\OneDrive\Documents\Django\Backend si\tp-si-main\apps\users\middleware.py", line 56, in log_action
+    AuditLog.objects.create(**audit_data)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\query.py", line 669, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\base.py", line 1167, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\base.py", line 1218, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\compiler.py", line 1924, in execute_sql
+    for sql, params in self.as_sql():
+                       ~~~~~~~~~~~^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\compiler.py", line 1813, in as_sql
+    field_prepare(field_pre_save(obj)) for obj in self.query.objs
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\sql\compiler.py", line 1742, in prepare_value
+    return field.get_db_prep_save(value, connection=self.connection)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\fields\json.py", line 118, in get_db_prep_save
+    return super().get_db_prep_save(value, connection)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\fields\__init__.py", line 1011, in get_db_prep_save
+    return self.get_db_prep_value(value, connection=connection, prepared=False)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\models\fields\json.py", line 102, in get_db_prep_value
+    return connection.ops.adapt_json_value(value, self.encoder)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\db\backends\base\operations.py", line 593, in adapt_json_value
+    return json.dumps(value, cls=encoder)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python314\Lib\json\__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Program Files\Python314\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python314\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Program Files\Python314\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type Decimal is not JSON serializable
+when serializing dict item 'tarif_poids'
+WARNING 2026-01-22 13:25:40,431 log 22512 15772 Bad Request: /logistics/api/expeditions/
+WARNING 2026-01-22 13:27:31,011 log 16928 19284 Bad Request: /billing/api/factures/
+WARNING 2026-01-22 13:27:31,335 log 16928 19284 Not Found: /api/billing/paiements/
+ERROR 2026-01-22 13:27:54,345 log 24364 3776 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\utils\deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\smily\AppData\Roaming\Python\Python314\site-packages\django\http\request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2026-01-22 13:28:09,650 log 22604 19820 Bad Request: /billing/api/factures/
+WARNING 2026-01-22 13:28:56,004 log 23524 5488 Bad Request: /api/billing/paiements/
+WARNING 2026-01-22 13:29:09,861 log 22644 15824 Bad Request: /api/billing/paiements/
+INFO 2026-01-22 15:03:07,791 autoreload 18072 8276 Watching for file changes with StatReloader
+WARNING 2026-01-22 15:04:22,899 log 18072 11516 Not Found: /
+WARNING 2026-01-22 15:04:22,902 log 18072 11516 "GET / HTTP/1.1" 404 1262
+WARNING 2026-01-22 15:04:24,052 log 18072 11516 Not Found: /favicon.ico
+WARNING 2026-01-22 15:04:24,053 log 18072 11516 "GET /favicon.ico HTTP/1.1" 404 1225
