@@ -32,7 +32,7 @@ class FactureSerializer(serializers.ModelSerializer):
 
         # Calculate totals using Decimal for accuracy
         total_ht = sum(Decimal(exp.montant) for exp in expeditions)
-        montant_tva = total_ht * Decimal('0.20')  # Assuming 20% TVA
+        montant_tva = total_ht * Decimal('0.19')  # Assuming 19% TVA
         montant_ttc = total_ht + montant_tva
 
         data['montant_ht'] = total_ht

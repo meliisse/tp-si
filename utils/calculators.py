@@ -33,26 +33,26 @@ def calculate_shipping_cost(type_service, destination, weight, volume):
     except Tarification.DoesNotExist:
         raise ValueError(f"No pricing found for {type_service} to {destination}")
 
-def calculate_tva(amount, tva_rate=0.20):
+def calculate_tva(amount, tva_rate=0.19):
     """
     Calculate TVA (VAT) amount.
 
     Args:
         amount: Decimal - base amount
-        tva_rate: float - TVA rate (default 20%)
+        tva_rate: float - TVA rate (default 19%)
 
     Returns:
         Decimal: TVA amount
     """
     return (amount * Decimal(str(tva_rate))).quantize(Decimal('0.01'))
 
-def calculate_total_with_tva(amount_ht, tva_rate=0.20):
+def calculate_total_with_tva(amount_ht, tva_rate=0.19):
     """
     Calculate total amount including TVA.
 
     Args:
         amount_ht: Decimal - amount before tax
-        tva_rate: float - TVA rate (default 20%)
+        tva_rate: float - TVA rate (default 19%)
 
     Returns:
         tuple: (tva_amount, total_ttc)

@@ -17,7 +17,12 @@ class Facture(models.Model):
 	montant_ht = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
 	montant_tva = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
 	montant_ttc = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
-	est_payee = models.BooleanField(default=False)
+	STATUT_PAIEMENT_CHOICES = [
+		('impayee', 'Impayée'),
+		('partielle', 'Partielle'),
+		('payee', 'Payée'),
+	]
+	est_payee = models.CharField(max_length=20, choices=STATUT_PAIEMENT_CHOICES, default='impayee')
 	mode = models.CharField(max_length=20, choices=MODE_CHOICES, default='standard')
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)

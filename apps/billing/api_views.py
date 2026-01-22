@@ -53,14 +53,32 @@ class FactureViewSet(viewsets.ModelViewSet):
         response['Content-Disposition'] = f'attachment; filename="invoice_{facture.id}.pdf"'
         return response
 
+    @action(detail=True, methods=['post'])
+    def generate_payment_receipt_pdf(self, request, pk=None):
+        from apps.billing.pdf_utils import generate_payment_receipt_pdf
+        facture = self.get_object()
+        paiement_id = request.data.get('paiement_id')
+        if not paiement_id:
+            return Response({'error': 'paiement_id is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            paiement = facture.paiements.get(id=paiement_id)
+            pdf_buffer = generate_payment_receipt_pdf(paiement)
+            response = Response(pdf_buffer.getvalue(), content_type='application/pdf')
+            response['Content-Disposition'] = f'attachment; filename="payment_receipt_{paiement.id}.pdf"'
+            return response
+        except Paiement.DoesNotExist:
+            return Response({'error': 'Payment not found for this invoice'}, status=status.HTTP_404_NOT_FOUND)
+
     @action(detail=False, methods=['get'])
     def statistics(self, request):
         stats = Facture.objects.aggregate(
             total_invoices=Count('id'),
             total_amount_ht=Sum('montant_ht'),
             total_amount_ttc=Sum('montant_ttc'),
-            paid_invoices=Count('id', filter=Q(est_payee=True)),
-            unpaid_invoices=Count('id', filter=Q(est_payee=False))
+            paid_invoices=Count('id', filter=Q(est_payee='payee')),
+            partial_invoices=Count('id', filter=Q(est_payee='partielle')),
+            unpaid_invoices=Count('id', filter=Q(est_payee='impayee'))
         )
         return Response(stats)
 
@@ -101,7 +119,7 @@ class PaiementViewSet(viewsets.ModelViewSet):
                 montant_ht=montant_ht,
                 montant_tva=montant_tva,
                 montant_ttc=montant,
-                est_payee=False
+                est_payee='impayee'
             )
 
         if not facture:
@@ -132,7 +150,7 @@ class PaiementViewSet(viewsets.ModelViewSet):
 
         try:
             facture = Facture.objects.get(id=facture_id)
-            if facture.est_payee:
+            if facture.est_payee == 'payee':
                 return Response({'error': 'Invoice is already fully paid'}, status=status.HTTP_400_BAD_REQUEST)
 
             # Calculate remaining amount
@@ -149,11 +167,15 @@ class PaiementViewSet(viewsets.ModelViewSet):
                 reference=request.data.get('reference', '')
             )
 
-            # Check if fully paid
+            # Update payment status
             new_paid_total = paid_amount + montant
             if new_paid_total >= facture.montant_ttc:
-                facture.est_payee = True
-                facture.save()
+                facture.est_payee = 'payee'
+            elif new_paid_total > 0:
+                facture.est_payee = 'partielle'
+            else:
+                facture.est_payee = 'impayee'
+            facture.save()
 
             serializer = self.get_serializer(paiement)
             return Response(serializer.data, status=status.HTTP_201_CREATED)

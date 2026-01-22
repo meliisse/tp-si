@@ -6,6 +6,7 @@ from apps.users.models import User
 
 class Expedition(models.Model):
 	STATUT_CHOICES = [
+		("creee", "Créée"),
 		("en_transit", "En transit"),
 		("tri", "En centre de tri"),
 		("livraison", "En cours de livraison"),

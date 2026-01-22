@@ -195,7 +195,7 @@ class PDFGenerator:
 
         totals_data = [
             ['Subtotal (HT):', f'{tax_info["amount_ht"]:.2f} €'],
-            ['TVA (20%):', f'{tax_info["tva_amount"]:.2f} €'],
+            ['TVA (19%):', f'{tax_info["tva_amount"]:.2f} €'],
             ['Total (TTC):', f'{tax_info["total_ttc"]:.2f} €']
         ]
 
